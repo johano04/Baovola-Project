@@ -11,8 +11,6 @@ class CreateOrderItems extends Migration
         $this->forge->addField([
             'id' => [
                 'type' => 'SERIAL',
-                'constraint' => 11,
-                'unsigned' => false,
                 'auto_increment' => true,
             ],
             'order_id' => [

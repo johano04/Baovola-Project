@@ -4,33 +4,31 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateUsers extends Migration
+class CreateProducts extends Migration
 {
     public function up()
     {
         $this->forge->addField([
             'id' => [
                 'type' => 'SERIAL',
-                'constraint' => 11,
-                'unsigned' => false,
                 'auto_increment' => true,
             ],
-            'first_name' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
-            ],
-            'last_name' => [
-                'type' => 'VARCHAR',
-                'constraint' => 100,
-            ],
-            'email' => [
+            'name' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
-                'unique' => true,
             ],
-            'password' => [
+            'description' => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'price' => [
+                'type' => 'NUMERIC',
+                'constraint' => '10,2',
+            ],
+            'image_url' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
@@ -42,11 +40,11 @@ class CreateUsers extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->createTable('users');
+        $this->forge->createTable('products');
     }
 
     public function down()
     {
-        $this->forge->dropTable('users');
+        $this->forge->dropTable('products');
     }
 }

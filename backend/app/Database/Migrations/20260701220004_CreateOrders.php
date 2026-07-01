@@ -4,31 +4,28 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateCartItems extends Migration
+class CreateOrders extends Migration
 {
     public function up()
     {
         $this->forge->addField([
             'id' => [
                 'type' => 'SERIAL',
-                'constraint' => 11,
-                'unsigned' => false,
                 'auto_increment' => true,
             ],
-            'cart_id' => [
+            'user_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => false,
             ],
-            'product_id' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => false,
+            'total_amount' => [
+                'type' => 'NUMERIC',
+                'constraint' => '10,2',
             ],
-            'quantity' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'default' => 1,
+            'status' => [
+                'type' => 'VARCHAR',
+                'constraint' => 50,
+                'default' => 'pending',
             ],
             'created_at' => [
                 'type' => 'TIMESTAMP',
@@ -40,13 +37,12 @@ class CreateCartItems extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('cart_id', 'carts', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('product_id', 'products', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('cart_items');
+        $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('orders');
     }
 
     public function down()
     {
-        $this->forge->dropTable('cart_items');
+        $this->forge->dropTable('orders');
     }
 }
